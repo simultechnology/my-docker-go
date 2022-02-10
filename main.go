@@ -1,13 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
+
+type Res struct {
+	Status   string
+	NodeIp   string
+	NodeName string
+}
 
 func main() {
 
@@ -19,11 +24,7 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		nodeIp := os.Getenv("NODE_IP")
 		nodeName := os.Getenv("NODE_NAME")
-		return c.HTML(http.StatusOK, fmt.Sprintf("NODE_IP: %s<br>NODE_NAME: %s", nodeIp, nodeName))
-	})
-
-	e.GET("/ping", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, struct{ Status string }{Status: "OK"})
+		return c.JSON(http.StatusOK, Res{Status: "OK", NodeIp: nodeIp, NodeName: nodeName})
 	})
 
 	httpPort := os.Getenv("HTTP_PORT")

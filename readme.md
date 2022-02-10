@@ -9,7 +9,7 @@ go run main.go
 ## build a docker image
 
 ```
-docker build --tag docker-golang-webserver .
+docker build --tag docker-golang-webserver:1.0 .
 
 ```
 
